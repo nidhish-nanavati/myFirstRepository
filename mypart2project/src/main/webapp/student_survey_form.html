@@ -1,0 +1,92 @@
+<!-- HTML Markup Page for Student Survey form -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel = "stylesheet" href = "./css/styles.css" type="text/css"/> 
+    </head>
+    <body>
+        <div class="form-div">
+            <form action="" class="form-class" name="Student Survey form" method ="get" >
+        		<div class = "form-title">
+        		<h1 style="font-family:sans-serif;text-transform:uppercase"> Student survey form</h1>
+        		</div>
+                <div class= "form-field">
+                    <label id="label-name" class="form-label" >First Name</label>
+                    <input type= "text" required placeholder="Given Name"/>
+                </div>
+                <div class="form-field" >
+                    <label class="form-label">Last Name</label>
+                    <input type= "text" required placeholder="Family Name"/>
+                </div>
+                <div class="form-field" >
+                    <label class="form-label">Street Address</label>
+                    <input type= "text" required placeholder="Street Name + Apt No"/>
+                </div>
+                <div class="form-field" >
+                    <label class="form-label">City</label>
+                    <input type= "text" required placeholder="Eg: Fairfax,Boston"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">State</label>
+                    <input type= "text" required placeholder="Eg: VA,MT"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Zip</label>
+                    <input type= "text" maxlength="5" required placeholder="Eg: 22030,02108"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Telephone Number</label>
+					<input type="tel" placeholder="Eg: 123-456-7890" required>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">E-mail</label>
+                    <input type= "email" required placeholder="xyz@website.com"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Date of Survey</label>
+                    <input type= "date" required/>
+                </div>
+                <div class="form-field field-checkbox" id="field-checkbox">
+                    <label class="form-label" id ="label-likeness">What do you like about the campus?</label>
+                    <div><input type= "checkbox" value="students"/><span>Students</span></div>
+                    <div><input type= "checkbox" value="location"/><span>Location</span></div>
+                    <div><input type= "checkbox" value="campus"/><span>Campus</span></div>
+                    <div><input type= "checkbox" value="atmosphere"/><span>Atmosphere</span></div>
+                    <div><input type= "checkbox" value="dorm_rooms"/><span>Dorm rooms</span></div>
+                    <div><input type= "checkbox" value="sports"/><span>Sports</span></div>
+                </div>
+                <div class="form-field field-radio">
+                    <label class="form-label" id ="label-fascination">How did you get interested about the university?</label>
+                    <div><input type= "radio" name = "radio-fascination" value = "friends" /><span>Friends</span></div>
+                    <div><input type= "radio" name = "radio-fascination" value = "television" /><span>Television</span></div>
+                    <div><input type= "radio" name = "radio-fascination" value = "intenet"/><span>Internet</span></div>
+                    <div><input type= "radio" name = "radio-fascination" value= "others" /><span>Others</span></div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Likelihood of recommending school</label>
+                    <select>
+                        <option value="very-likely">Very Likely</option>
+                        <option value="likely">Likely</option>    
+                        <option value="unlikely">Unlikely</option>    
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" style="color : rgb(150, 67, 126)">Raffle(enter 10 numbers comma sepereated between 1-100)</label>
+                    <input type="text"/>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" style="color : rgb(150, 67, 126)">Additional comments...</label>
+                    <textarea>
+                    </textarea>
+                </div>
+                <div class="form-field button">
+                    <input type="submit" value = "Submit"/> 
+                </div>
+                <div class="form-field button">
+                    <input type="button" value = "Cancel"/>   
+                </div>
+                <!-- Students location, campus, atmosphere, dorm rooms, and sports.-->
+            </form>     
+        </div>
+    </body>
+</html>

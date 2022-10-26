@@ -27,7 +27,7 @@ pipeline
             steps {
                 echo 'Building..'
                 script {
-                  sh "sudo docker build -t nidhish98/studentsurvey645:0.1 ."
+                  sh "docker build -t nidhish98/studentsurvey645:0.1 ."
                 }
 
             }

@@ -1,7 +1,10 @@
 pipeline 
  {
-   agent any 
-      options {skipStagesAfterUnstable()}
+   agent any environment {
+        registry = "nidhish98/studentsurvey645"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
 
      stages {
 
@@ -18,15 +21,14 @@ pipeline
         }
       
            
-            stage('Build') 
-      { 
-            steps 
-              { 
-                script
-                {
-                 sh 'docker login -u nidish98 -p nidDocker@23'
-                 app = docker.build("nidhish98/studentsurvey645:0.1")
+       stage('Build') {
+            steps {
+                echo 'Building..'
+                script {
+                  
+                  dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
+
             }
         }
        
@@ -34,24 +36,19 @@ pipeline
       {
             steps 
             {
-                 echo 'Empty'
+                 echo 'Testing..'
             }
       }
       
-      stage('Deploy')
-      {
-            steps 
-            {
-                script
-                 {
-                    docker.withRegistry('https://registry.example.com', 'dockerhub') 
-                   {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
+     
+      stage('Deploy Image') {
+            steps{
+                script{
+                    docker.withRegistry('',registryCredential){
+                        dockerImage.push()
                     }
                 }
             }
-            
-      } 
+        }
      }
  }

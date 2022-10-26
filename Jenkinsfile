@@ -27,8 +27,7 @@ pipeline
             steps {
                 echo 'Building..'
                 script {
-
-                  dockerImage = docker.build("nidhish98/studentsurvey645:0.1")
+                  sh "sudo docker build -t nidhish98/studentsurvey645:0.1 ."
                 }
 
             }

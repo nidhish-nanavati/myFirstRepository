@@ -12,9 +12,6 @@ pipeline
             steps{ 
                script {
              checkout scm
-             sh 'rm -rf *.war'
-             sh 'jar -cvf mypartproject.war -C WebContent/.'
-             sh 'echo ${BUILD_TIMESTAMP}'
              sh 'docker login -u nidish98 -p nidDocker@23'
              def customImage = docker.build("nidhish98/studentsurvey645:0.1:${BUILD_TIMESTAMP}")
 

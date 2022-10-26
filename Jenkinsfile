@@ -33,7 +33,7 @@ pipeline
             stage("Deploying to Rancher as single pod") 
             { steps 
                  {
-                sh 'kubectl set image deployment/ec2-trail-pipeline ec2-trail--pipeline-nidhish98/studentsurvey645:0.1:${BUILD_TIMESTAMP} -n jenkins-pipeline'
+                sh 'kubectl set image deployment/ec2-pipeline ec2-pipeline-nidhish98/studentsurvey645:0.1:${BUILD_TIMESTAMP} -n jenkins-pipeline'
                   }
             }
             

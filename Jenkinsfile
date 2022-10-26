@@ -25,9 +25,8 @@ pipeline
        stage('Build') {
             steps {
                 echo 'Building..'
-                script {
-                  
-                  dockerImage = docker.build registry + ":$BUILD_NUMBER"
+             script{
+              dockerImage = docker.build("nidhish98/studentsurvey645:0.1:${BUILD_NUMBER}")
                 }
 
             }
@@ -45,7 +44,7 @@ pipeline
       stage('Deploy Image') {
             steps{
                 script{
-                    docker.withRegistry('',registryCredential){
+                    docker.withRegistry('nidhish98/studentsurvey645',registryCredential){
                         dockerImage.push()
                     }
                 }

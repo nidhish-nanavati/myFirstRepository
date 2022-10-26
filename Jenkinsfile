@@ -21,19 +21,13 @@ pipeline
             }
         }
       
-      stage('maven build')
-      { steps{
-           script{
-        def manvenHome = tool name: "Maven", type: "maven"
-        def mavenCMD = "${mavenHome}/bin/mvn"
-       sh "${mavenCMD} clean package"}
-      }}
+      
            
        stage('Build') {
             steps {
                 echo 'Building..'
              script{
-              dockerImage = docker.build("nidhish98/studentsurvey645:0.1:${BUILD_NUMBER}")
+             sh "docker build -t nidhish98/studentsurvey645:0.1:${BUILD_NUMBER} ."
                 }
 
             }

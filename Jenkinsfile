@@ -1,80 +1,47 @@
-pipeline {
-    environment {
-        registry = "nidhish98/studentsurvey645"
-        registryCredential = 'dockerhub'
-        dockerImage = ''
-    }
-    agent any
-    
-    stages {
-        stage('Cloning Git') {
-            steps{
-                git 'https://github.com/nidhish-nanavati/myFirstRepository.git'
-                withAnt(installation: 'Ant1.10.7') {
-                        sh'''
-                        #!/bin/bash
-                        cd ~/workspace/myFirstRespository/mypart2project
-                        ls
-                        ant war
-                        '''
-                }
-            }
-        }
+pipeline 
+ {
+   agent any 
+      environment {
+                     DOCKERHUB_PASS = credentials('nidDocker@23')
+                  }
 
-        stage('Build') {
+     stages {
+
+            stage("Building the Student Survey Image") 
+            {
+            steps{ 
+               script {
+             checkout scm
+             sh 'rm -rf *.war'
+             sh 'jar -cvf StudentSurvey.war -C WebContent/.'
+             sh 'echo ${BUILD_TIMESTAMP}'
+             sh "docker login -u nidish98 -p ${DOCKERHUB PASS}"
+             def customImage = docker.build("nidhish98/studentsurvey645:0.1:${BUILD_TIMESTAMP}")
+
+                        } 
+                  }
+             }
+
+            stage("Pushing Image to DockerHub") 
+            {
             steps {
-                echo 'Building..'
-                script {
-
-                  dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-
-        stage('Deploy Image') {
-            steps{
                 script{
-                    docker.withRegistry('',registryCredential){
-                        dockerImage.push()
-                    }
-                }
+                  sh 'docker push nidhish98/studentsurvey645:0.1:${BUILD_TIMESTAMP}'
+                      }
+                  }
+             }
+            stage("Deploying to Rancher as single pod") 
+            { steps 
+                 {
+                sh 'kubectl set image deployment/ec2-trail-pipeline ec2-trail--pipeline-nidhish98/studentsurvey645:0.1:${BUILD_TIMESTAMP} -n jenkins-pipeline'
+                  }
             }
+            
+            stage("Deploying to Rancher as with load balancer") 
+             {
+             steps {
+             sh 'kubectl set image deployment/amazon-trail-lb amazon-trail-lb=nidhish98/studentsurvey645:0.1:${BUILD_TIMESTAMP) -n jenkins-pipeline'
+                   }
+              }
         }
-
-        
-		
-		stage('redeploy') {
-            steps{
-               
-               sh'''
-               #!/bin/bash
-                docker login
-                docker pull nidhish98/studentsurvey645:$BUILD_NUMBER
-                sudo -s source /etc/environment
-                kubectl --kubeconfig ~/var/lib/jenkins/.kube/config set image deployment swe-645 mypart2project=docker.io/nidhish98/studentsurvey645:$BUILD_NUMBER
-            '''
-            }
-        }
-
-        stage('Remove Unused docker image') {
-          steps{
-            sh "docker rmi $registryRestful:$BUILD_NUMBER"
-            sh "docker rmi $registryApp:$BUILD_NUMBER"
-          }
-        }
-		
-    }
-
-     
-}
+ }

@@ -27,7 +27,7 @@ pipeline
             steps {
                 echo 'Building..'
                 script {
-                  sh "docker login -u nidish98 -p ${nidDocker@23}"
+                  sh "docker login -u nidish98 -p nidDocker@23"
                   sh "docker build -t nidhish98/studentsurvey645:0.1 ."
                 }
 

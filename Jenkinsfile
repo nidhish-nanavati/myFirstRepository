@@ -21,8 +21,8 @@ pipeline
             }
         }
       
-      stage ('maven build')
-      { def manvenHome = tool name: 'Maven', type: 'maven'
+      stage('maven build')
+      { def manvenHome = tool name: "Maven", type: "maven"
         def mavenCMD = "${mavenHome}/bin/mvn"
         sh "${mavenCMD} clean package"
        }

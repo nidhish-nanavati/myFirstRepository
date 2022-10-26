@@ -23,11 +23,12 @@ pipeline
       
       
            
-       stage('Build') {
+        stage('Build') {
             steps {
                 echo 'Building..'
-             script{
-             sh "docker build -t nidhish98/studentsurvey645:0.1:${BUILD_NUMBER} ."
+                script {
+
+                  dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
 
             }
